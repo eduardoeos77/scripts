@@ -2,12 +2,6 @@
 
 # Script para instalação do serviço EasiDataRelay
 
-# 1. Validar se o script está sendo executado como sudo
-if [ "$EUID" -ne 0 ]; then
-    print_warning "Por favor, execute este script como root/sudo"
-    exit 1
-fi
-
 # Cores para a saída
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -18,14 +12,18 @@ NC='\033[0m' # No Color
 print_status() {
     echo -e "${GREEN}[INFO]${NC} $1"
 }
-
 print_warning() {
     echo -e "${YELLOW}[AVISO]${NC} $1"
 }
-
 print_error() {
     echo -e "${RED}[ERRO]${NC} $1"
 }
+
+# 1. Validar se o script está sendo executado como sudo
+if [ "$EUID" -ne 0 ]; then
+    print_warning "Por favor, execute este script como root/sudo"
+    exit 1
+fi
 
 # 2. Preparação do ambiente
 cd /opt
